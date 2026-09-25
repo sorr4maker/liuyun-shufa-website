@@ -1115,27 +1115,35 @@ button {
   object-fit: contain;
 }
 
-/* 保留完整高度，只收掉照片两侧的桌面与墙面。 */
+/* 以版面比例裁切作品照片，点击卡片可查看完整原图。 */
 .softbrush-gallery {
   grid-column: 1 / -1;
-  column-count: 3;
-  column-gap: 22px;
+  display: grid;
+  gap: 22px;
 }
 .softbrush-card {
-  display: inline-block;
-  width: 100%;
-  margin-bottom: 22px;
-  break-inside: avoid;
+  min-width: 0;
+}
+.softbrush-columns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: 22px;
+}
+.softbrush-column {
+  display: grid;
+  align-content: start;
+  gap: 22px;
 }
 .work-media--softbrush {
   aspect-ratio: 3 / 4;
 }
-.softbrush-card--01 .work-media { aspect-ratio: 3 / 5; }
+.softbrush-card--01 .work-media { aspect-ratio: 1 / 2; }
 .softbrush-card--02 .work-media { aspect-ratio: 9 / 5; }
-.softbrush-card--03 .work-media { aspect-ratio: 2 / 3; }
-.softbrush-card--04 .work-media { aspect-ratio: 9 / 20; }
+.softbrush-card--03 .work-media { aspect-ratio: 3 / 4; }
+.softbrush-card--04 .work-media { aspect-ratio: 1 / 2; }
 .softbrush-card--05 .work-media { aspect-ratio: 4 / 5; }
-.softbrush-card--06 .work-media { aspect-ratio: 1 / 4; }
+.softbrush-card--06 .work-media { aspect-ratio: 3 / 10; }
 .work-media--softbrush img {
   object-fit: cover;
   object-position: center top;
@@ -1968,8 +1976,14 @@ a.map-placeholder:hover p {
    响应式
    ============================================================ */
 @media (max-width: 1024px) {
-  .softbrush-gallery {
-    column-count: 2;
+  .softbrush-columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .softbrush-column:last-child {
+    grid-column: 1 / -1;
+    width: 100%;
+    max-width: 50%;
+    justify-self: center;
   }
   .course-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1983,9 +1997,6 @@ a.map-placeholder:hover p {
 }
 
 @media (max-width: 768px) {
-  .softbrush-gallery {
-    column-count: 1;
-  }
   .section {
     padding: 72px 0;
   }
@@ -2074,6 +2085,13 @@ a.map-placeholder:hover p {
 }
 
 @media (max-width: 480px) {
+  .softbrush-columns {
+    grid-template-columns: 1fr;
+  }
+  .softbrush-column:last-child {
+    grid-column: auto;
+    max-width: none;
+  }
   .hero-title {
     font-size: 38px;
     letter-spacing: 0.1em;
