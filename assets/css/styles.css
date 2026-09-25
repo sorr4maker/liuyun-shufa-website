@@ -1154,14 +1154,6 @@ button {
   object-fit: contain;
 }
 
-/* 横版全景作品：占满整行展示（如五体合展挂轴全景） */
-.work-card--full {
-  grid-column: 1 / -1;
-}
-.work-media--wide {
-  aspect-ratio: 4 / 3;
-}
-
 /* 老师作品：五张条幅 3+2 居中排版（第二行不满时自动居中，不留缺角） */
 .teacher-works-row {
   grid-column: 1 / -1;
