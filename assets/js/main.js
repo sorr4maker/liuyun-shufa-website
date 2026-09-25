@@ -337,7 +337,7 @@ function openLightbox(card) {
   if (!lightbox || !card) return;
   const caption = card.querySelector(".work-caption");
   const catEl = card.querySelector(".work-cat");
-  const isLandscape = card.dataset.category === "environment";
+  const isLandscape = card.dataset.category === "environment" || card.dataset.orientation === "landscape";
   const firstImg = card.querySelector(".work-media img");
   setLightboxImage(
     firstImg,

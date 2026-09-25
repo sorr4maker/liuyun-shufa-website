@@ -1134,6 +1134,11 @@ button {
   box-shadow: var(--shadow-soft);
 }
 
+/* 学生习作完整展示纸面，避免裁去边缘笔画。 */
+.work-media--student img {
+  object-fit: contain;
+}
+
 /* 竖版条幅作品：完整展示整幅卷轴，宣纸底留白（区别于横版照片的 cover 裁切） */
 .work-media--scroll {
   aspect-ratio: 5 / 8;
