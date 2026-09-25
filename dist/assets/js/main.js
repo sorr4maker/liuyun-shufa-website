@@ -310,14 +310,17 @@ const lightboxTitle = $("#lightboxTitle");
 const lightboxTag = $("#lightboxTag");
 let lightboxLastFocused = null;
 
-function setLightboxImage(sourceImage, title, tag = "", isLandscape = false) {
+function setLightboxImage(sourceImage, title, tag = "", orientation = "portrait") {
   if (!lightbox || !sourceImage) return;
   lightboxLastFocused = document.activeElement;
   const lbContent = $(".lightbox-content", lightbox);
   const lbMedia = $(".lightbox-media", lightbox);
   if (!lbMedia) return;
-  if (lbContent) lbContent.classList.toggle("is-landscape", isLandscape);
-  lbMedia.classList.toggle("is-landscape", isLandscape);
+  for (const mode of ["landscape", "wide", "tall"]) {
+    if (lbContent) lbContent.classList.toggle(`is-${mode}`, orientation === mode);
+    lbMedia.classList.toggle(`is-${mode}`, orientation === mode);
+  }
+  lbMedia.tabIndex = orientation === "tall" ? 0 : -1;
 
   const previewImage = document.createElement("img");
   if (sourceImage.srcset) previewImage.srcset = sourceImage.srcset;
@@ -337,13 +340,13 @@ function openLightbox(card) {
   if (!lightbox || !card) return;
   const caption = card.querySelector(".work-caption");
   const catEl = card.querySelector(".work-cat");
-  const isLandscape = card.dataset.category === "environment" || card.dataset.orientation === "landscape";
+  const orientation = card.dataset.orientation || (card.dataset.category === "environment" ? "landscape" : "portrait");
   const firstImg = card.querySelector(".work-media img");
   setLightboxImage(
     firstImg,
     caption ? caption.textContent : "作品预览",
     catEl ? catEl.textContent : "",
-    isLandscape
+    orientation
   );
 }
 
@@ -451,7 +454,7 @@ function renderActivities() {
 }
 renderActivities();
 
-const revealEls = $$(".section-head, .feature-card, .course-card, .work-card, .works-empty-state, .step-item, .teacher-poster, .contact-grid, .activity-card");
+const revealEls = $$(".section-head, .feature-card, .course-card, .work-card, .step-item, .teacher-poster, .contact-grid, .activity-card");
 
 /* 返回顶部：离开页面顶部后出现 */
 const backToTop = $("#backToTop");

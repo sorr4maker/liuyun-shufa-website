@@ -1084,30 +1084,6 @@ button {
   flex-shrink: 0;
 }
 
-.works-empty-state {
-  grid-column: 1 / -1;
-  margin: 8px 0 18px;
-  padding: 30px 32px;
-  text-align: center;
-  background: rgba(182, 154, 102, 0.06);
-  border: 1px solid var(--line-soft);
-  border-radius: var(--radius);
-}
-
-.works-empty-state p {
-  max-width: 640px;
-  margin: 0 auto;
-  color: var(--gray);
-}
-
-.works-empty-state .works-empty-title {
-  margin-bottom: 8px;
-  font-family: var(--font-kai);
-  font-size: 19px;
-  letter-spacing: 0.14em;
-  color: var(--ink);
-}
-
 .work-card {
   margin: 0;
   cursor: pointer;
@@ -1137,6 +1113,32 @@ button {
 /* 学生习作完整展示纸面，避免裁去边缘笔画。 */
 .work-media--student img {
   object-fit: contain;
+}
+
+/* 保留完整高度，只收掉照片两侧的桌面与墙面。 */
+.softbrush-gallery {
+  grid-column: 1 / -1;
+  column-count: 3;
+  column-gap: 22px;
+}
+.softbrush-card {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 22px;
+  break-inside: avoid;
+}
+.work-media--softbrush {
+  aspect-ratio: 3 / 4;
+}
+.softbrush-card--01 .work-media { aspect-ratio: 3 / 5; }
+.softbrush-card--02 .work-media { aspect-ratio: 9 / 5; }
+.softbrush-card--03 .work-media { aspect-ratio: 2 / 3; }
+.softbrush-card--04 .work-media { aspect-ratio: 9 / 20; }
+.softbrush-card--05 .work-media { aspect-ratio: 4 / 5; }
+.softbrush-card--06 .work-media { aspect-ratio: 1 / 4; }
+.work-media--softbrush img {
+  object-fit: cover;
+  object-position: center top;
 }
 
 /* 竖版条幅作品：完整展示整幅卷轴，宣纸底留白（区别于横版照片的 cover 裁切） */
@@ -1877,6 +1879,21 @@ a.map-placeholder:hover p {
   border-radius: var(--radius);
   box-shadow: 0 24px 60px rgba(28, 28, 26, 0.4);
 }
+.lightbox-content.is-wide {
+  max-width: min(900px, 92vw);
+}
+.lightbox-media.is-wide {
+  aspect-ratio: 2 / 1;
+}
+.lightbox-media.is-tall {
+  aspect-ratio: auto;
+  max-height: 76vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.lightbox-media.is-tall img {
+  height: auto;
+}
 .lightbox-caption {
   display: flex;
   align-items: center;
@@ -1951,6 +1968,9 @@ a.map-placeholder:hover p {
    响应式
    ============================================================ */
 @media (max-width: 1024px) {
+  .softbrush-gallery {
+    column-count: 2;
+  }
   .course-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1963,6 +1983,9 @@ a.map-placeholder:hover p {
 }
 
 @media (max-width: 768px) {
+  .softbrush-gallery {
+    column-count: 1;
+  }
   .section {
     padding: 72px 0;
   }
